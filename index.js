@@ -121,98 +121,101 @@ let persons = [
 ]
 
 app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
+  return response.json(persons)
 })
 
+
 app.get('/api/persons', (request, response) => {
-  const nameAndNumber = persons.map(person => [person.name, person.number, person.id])
-  const html = nameAndNumber.map(person => {
-    return `
-      <p>
-        ${person[0]}: ${person[1]} 
-        <button onClick="deletePerson('${person[2]}')">Delete</button>
-      </p>
-    `;
-  }).join('');
+return response.json(persons)
 
-  response.send(`
-    <html>
-      <body>
-        <h2>Persons</h2>
-        <button onClick="addPerson()">Add new person</button>
-        ${html}
-        <script>
-        async function addPerson() {
-          const name = document.getElementById('name').value;
-          const number = document.getElementById('number').value;
+  // const nameAndNumber = persons.map(person => [person.name, person.number, person.id])
+  // const html = nameAndNumber.map(person => {
+  //   return `
+  //     <p>
+  //       ${person[0]}: ${person[1]} 
+  //       <button onClick="deletePerson('${person[2]}')">Delete</button>
+  //     </p>
+  //   `;
+  // }).join('');
 
-          if (!name || !number) {
-            alert('Name and number are required');
-            return;
-          }
+  // response.send(`
+  //   <html>
+  //     <body>
+  //       <h2>Persons</h2>
+  //       <button onClick="addPerson()">Add new person</button>
+  //       ${html}
+  //       <script>
+  //       async function addPerson() {
+  //         const name = document.getElementById('name').value;
+  //         const number = document.getElementById('number').value;
 
-          const response = await fetch('/api/persons');
-          const persons = await response.json();
-          const existingPerson = persons.find(person => person.name === name);
+  //         if (!name || !number) {
+  //           alert('Name and number are required');
+  //           return;
+  //         }
 
-          if (existingPerson) {
-            const update = window.confirm(\`\${name} already exists. Do you want to update the number for this person?\`);
-            if (update) {
-              await updatePerson(existingPerson.id, number);
-            }
-          } else {
-            await addNewPerson(name, number);
-          }
-        }
+  //         const response = await fetch('/api/persons');
+  //         const persons = await response.json();
+  //         const existingPerson = persons.find(person => person.name === name);
 
-        async function addNewPerson(name, number) {
-          const response = await fetch('/api/persons', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, number })
-          });
+  //         if (existingPerson) {
+  //           const update = window.confirm(\`\${name} already exists. Do you want to update the number for this person?\`);
+  //           if (update) {
+  //             await updatePerson(existingPerson.id, number);
+  //           }
+  //         } else {
+  //           await addNewPerson(name, number);
+  //         }
+  //       }
 
-          if (response.ok) {
-            window.location.reload();
-          } else {
-            alert('Failed to add new person');
-          }
-        }
+  //       async function addNewPerson(name, number) {
+  //         const response = await fetch('/api/persons', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json'
+  //           },
+  //           body: JSON.stringify({ name, number })
+  //         });
 
-        async function updatePerson(id, number) {
-          const response = await fetch('/api/persons/' + id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ number })
-          });
+  //         if (response.ok) {
+  //           window.location.reload();
+  //         } else {
+  //           alert('Failed to add new person');
+  //         }
+  //       }
 
-          if (response.ok) {
-            window.location.reload();
-          } else {
-            alert('Failed to update person');
-          }
-        }
+  //       async function updatePerson(id, number) {
+  //         const response = await fetch('/api/persons/' + id, {
+  //           method: 'PUT',
+  //           headers: {
+  //             'Content-Type': 'application/json'
+  //           },
+  //           body: JSON.stringify({ number })
+  //         });
 
-        function deletePerson(id) {
-          fetch('/api/persons/' + id, {
-            method: 'DELETE'
-          })
-          .then(response => {
-            if (response.ok) {
-              window.location.reload();
-            } else {
-              alert('Failed to delete person');
-            }
-          });
-        }
-        </script>
-      </body>
-    </html>
-  `)
+  //         if (response.ok) {
+  //           window.location.reload();
+  //         } else {
+  //           alert('Failed to update person');
+  //         }
+  //       }
+
+  //       function deletePerson(id) {
+  //         fetch('/api/persons/' + id, {
+  //           method: 'DELETE'
+  //         })
+  //         .then(response => {
+  //           if (response.ok) {
+  //             window.location.reload();
+  //           } else {
+  //             alert('Failed to delete person');
+  //           }
+  //         });
+  //       }
+  //       </script>
+  //     </body>
+  //   </html>
+  // `)
 })
 
             // if (response.ok) {
