@@ -8,8 +8,7 @@ if (process.argv.length<3) {
 const password = process.argv[2]
 
 const url =
-  `mongodb+srv://ekim1009:<9tfZIcGhSr7Efykp>@cluster0.yzux2rv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-  // `mongodb+srv://fullstack:${password}@cluster0.o1opl.mongodb.net/noteApp?retryWrites=true&w=majority`
+  `mongodb+srv://fullstack:${password}@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
 
@@ -31,4 +30,3 @@ note.save().then(result => {
   console.log('note saved!')
   mongoose.connection.close()
 })
-
