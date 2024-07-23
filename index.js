@@ -121,12 +121,12 @@ let persons = [
 ]
 
 app.get('/', (request, response) => {
-  return response.json(persons)
+   response.json(persons)
 })
 
 
 app.get('/api/persons', (request, response) => {
-return response.json(persons)
+ response.json(persons)
 
   // const nameAndNumber = persons.map(person => [person.name, person.number, person.id])
   // const html = nameAndNumber.map(person => {
